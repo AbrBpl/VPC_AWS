@@ -155,6 +155,11 @@ output "public_network_acl_arn" {
   value       = try(aws_network_acl.public[0].arn, null)
 }
 
+output "public_subnet_az_mapping" {
+  description = "A mapping of public subnet IDs to Availability Zones, useful when deploying PrivateLink endpoint services, which require matching AZs on both ends."
+  value       = { for subnet in aws_subnet.public[*] : (subnet["id"]) => subnet["availability_zone"] }
+}
+
 ################################################################################
 # Private Subnets
 ################################################################################
@@ -209,6 +214,11 @@ output "private_network_acl_arn" {
   value       = try(aws_network_acl.private[0].arn, null)
 }
 
+output "private_subnet_az_mapping" {
+  description = "A mapping of private subnet IDs to Availability Zones, useful when deploying PrivateLink endpoint services, which require matching AZs on both ends."
+  value       = { for subnet in aws_subnet.private[*] : (subnet["id"]) => subnet["availability_zone"] }
+}
+
 ################################################################################
 # Outpost Subnets
 ################################################################################
@@ -241,6 +251,11 @@ output "outpost_network_acl_id" {
 output "outpost_network_acl_arn" {
   description = "ARN of the outpost network ACL"
   value       = try(aws_network_acl.outpost[0].arn, null)
+}
+
+output "outpost_subnet_az_mapping" {
+  description = "A mapping of outpost subnet IDs to Availability Zones, useful when deploying PrivateLink endpoint services, which require matching AZs on both ends."
+  value       = { for subnet in aws_subnet.outpost[*] : (subnet["id"]) => subnet["availability_zone"] }
 }
 
 ################################################################################
@@ -313,6 +328,11 @@ output "database_network_acl_arn" {
   value       = try(aws_network_acl.database[0].arn, null)
 }
 
+output "database_subnet_az_mapping" {
+  description = "A mapping of database subnet IDs to Availability Zones, useful when deploying PrivateLink endpoint services, which require matching AZs on both ends."
+  value       = { for subnet in aws_subnet.database[*] : (subnet["id"]) => subnet["availability_zone"] }
+}
+
 ################################################################################
 # Redshift Subnets
 ################################################################################
@@ -365,6 +385,11 @@ output "redshift_network_acl_id" {
 output "redshift_network_acl_arn" {
   description = "ARN of the redshift network ACL"
   value       = try(aws_network_acl.redshift[0].arn, null)
+}
+
+output "redshift_subnet_az_mapping" {
+  description = "A mapping of Redshift subnet IDs to Availability Zones, useful when deploying PrivateLink endpoint services, which require matching AZs on both ends."
+  value       = { for subnet in aws_subnet.redshift[*] : (subnet["id"]) => subnet["availability_zone"] }
 }
 
 ################################################################################
@@ -421,6 +446,11 @@ output "elasticache_network_acl_arn" {
   value       = try(aws_network_acl.elasticache[0].arn, null)
 }
 
+output "elasticache_subnet_az_mapping" {
+  description = "A mapping of Elasticache subnet IDs to Availability Zones, useful when deploying PrivateLink endpoint services, which require matching AZs on both ends."
+  value       = { for subnet in aws_subnet.elasticache[*] : (subnet["id"]) => subnet["availability_zone"] }
+}
+
 ################################################################################
 # Intra Subnets
 ################################################################################
@@ -463,6 +493,11 @@ output "intra_network_acl_id" {
 output "intra_network_acl_arn" {
   description = "ARN of the intra network ACL"
   value       = try(aws_network_acl.intra[0].arn, null)
+}
+
+output "intra_subnet_az_mapping" {
+  description = "A mapping of intra subnet IDs to Availability Zones, useful when deploying PrivateLink endpoint services, which require matching AZs on both ends."
+  value       = { for subnet in aws_subnet.intra[*] : (subnet["id"]) => subnet["availability_zone"] }
 }
 
 ################################################################################
